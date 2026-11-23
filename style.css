@@ -1,0 +1,316 @@
+/* ===================================================
+   Pure CSS Photo Gallery with Filtering (4x3 Grid)
+   No JavaScript Required!
+   =================================================== */
+
+/* 1. Reset & Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  background-color: #f8fafc;
+  color: #1e293b;
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 60px 20px 100px;
+}
+
+/* 2. Container Wrapper */
+.gallery-wrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* 3. Header Section */
+.gallery-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.gallery-header .badge {
+  display: inline-block;
+  padding: 5px 14px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #2563eb;
+  background-color: #eff6ff;
+  border: 1px solid #dbeafe;
+  border-radius: 9999px;
+  margin-bottom: 12px;
+}
+
+.gallery-header .title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+
+.gallery-header .subtitle {
+  font-size: 1rem;
+  color: #64748b;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ===================================================
+   4. Pure CSS Filtering 핵심 메커니즘
+   숨김 처리된 라디오 버튼 + 형제 선택자(~) + :checked
+   =================================================== */
+
+/* 라디오 버튼 본체는 화면에서 숨김 */
+input[name="category"] {
+  display: none;
+}
+
+/* 필터 버튼 네비게이션 */
+.filter-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 48px;
+}
+
+/* 필터 버튼 (label 태그) 기본 스타일 */
+.filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 22px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #475569;
+  background-color: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.filter-btn .icon {
+  font-size: 1.05rem;
+}
+
+/* 버튼 호버 시 효과 */
+.filter-btn:hover {
+  color: #0f172a;
+  border-color: #cbd5e1;
+  background-color: #f1f5f9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* 
+  [핵심 1] 라디오 버튼이 :checked 되었을 때 해당하는 라벨(버튼) 활성화 스타일
+*/
+#all:checked ~ .filter-nav label[for="all"],
+#nature:checked ~ .filter-nav label[for="nature"],
+#architecture:checked ~ .filter-nav label[for="architecture"],
+#animals:checked ~ .filter-nav label[for="animals"] {
+  background-color: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+  transform: translateY(-2px);
+}
+
+/* 
+  [핵심 2] 선택된 라디오 버튼에 따라 일치하지 않는 아이템 숨김 (Filter Logic)
+  #all이 선택되면 모든 아이템이 기본 display로 표시됨.
+  특정 카테고리가 선택되면 해당 클래스를 갖지 않은 아이템은 display: none 처리됨.
+*/
+#nature:checked ~ .gallery .gallery-item:not(.nature) {
+  display: none;
+}
+
+#architecture:checked ~ .gallery .gallery-item:not(.architecture) {
+  display: none;
+}
+
+#animals:checked ~ .gallery .gallery-item:not(.animals) {
+  display: none;
+}
+
+/* ===================================================
+   5. 4x3 갤러리 그리드 레이아웃
+   =================================================== */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4열 (총 12개 아이템으로 4x3 배열 형성) */
+  gap: 24px;
+}
+
+/* 각 갤러리 아이템 (필터링 시 부드러운 페이드인 애니메이션) */
+.gallery-item {
+  animation: itemFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes itemFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 6. 카드 및 이미지 스타일 */
+.card {
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.12);
+}
+
+/* 이미지 박스 (4:3 비율 고정) */
+.img-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background-color: #e2e8f0;
+}
+
+.img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.card:hover .img-box img {
+  transform: scale(1.08);
+}
+
+/* 호버 시 나타나는 감각적인 오버레이 정보 */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(15, 23, 42, 0.85) 0%,
+    rgba(15, 23, 42, 0.4) 50%,
+    rgba(15, 23, 42, 0) 100%
+  );
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .overlay {
+  opacity: 1;
+}
+
+.tag {
+  align-self: flex-start;
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 6px;
+  margin-bottom: 8px;
+  transform: translateY(8px);
+  transition: transform 0.35s ease;
+}
+
+.card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 4px;
+  transform: translateY(8px);
+  transition: transform 0.35s ease 0.05s;
+}
+
+.card-desc {
+  font-size: 0.82rem;
+  color: #cbd5e1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transform: translateY(8px);
+  transition: transform 0.35s ease 0.1s;
+}
+
+.card:hover .tag,
+.card:hover .card-title,
+.card:hover .card-desc {
+  transform: translateY(0);
+}
+
+/* ===================================================
+   7. 반응형 웹 디자인 (Responsive Media Queries)
+   =================================================== */
+
+/* 태블릿 (1024px 이하): 3열 */
+@media (max-width: 1024px) {
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+/* 태블릿/모바일 가로 (768px 이하): 2열 */
+@media (max-width: 768px) {
+  body {
+    padding: 40px 16px 80px;
+  }
+
+  .gallery-header .title {
+    font-size: 1.85rem;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .filter-btn {
+    padding: 8px 16px;
+    font-size: 0.88rem;
+  }
+}
+
+/* 모바일 세로 (480px 이하): 1열 */
+@media (max-width: 480px) {
+  .gallery {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .filter-nav {
+    gap: 8px;
+  }
+
+  .filter-btn {
+    flex: 1 1 calc(50% - 8px);
+    justify-content: center;
+  }
+}

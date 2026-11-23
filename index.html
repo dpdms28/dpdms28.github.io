@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS 사진 갤러리 필터링 (Pure CSS)</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- 프리텐다드 폰트 적용 -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+</head>
+<body>
+
+  <div class="gallery-wrapper">
+    <!-- 헤더 영역 -->
+    <header class="gallery-header">
+      <span class="badge">PURE CSS ONLY</span>
+      <h1 class="title">포토 갤러리</h1>
+      <p class="subtitle">자바스크립트 없이 순수 CSS로 구현된 4×3 반응형 필터 갤러리입니다.</p>
+    </header>
+
+    <!-- 
+      순수 CSS 필터링의 핵심: 숨겨진 라디오 버튼들
+      라디오 버튼과 갤러리 리스트를 형제(sibling) 관계로 배치하여
+      :checked 상태에 따라 하위 형제 요소인 .gallery-item들을 선택 및 필터링합니다.
+    -->
+    <input type="radio" name="category" id="all" checked>
+    <input type="radio" name="category" id="nature">
+    <input type="radio" name="category" id="architecture">
+    <input type="radio" name="category" id="animals">
+
+    <!-- 필터 버튼 (라디오 버튼과 연결된 label 태그) -->
+    <nav class="filter-nav" aria-label="갤러리 카테고리 필터">
+      <label for="all" class="filter-btn">
+        <span class="icon">📁</span> 전체 (All)
+      </label>
+      <label for="nature" class="filter-btn">
+        <span class="icon">🌲</span> 자연 (Nature)
+      </label>
+      <label for="architecture" class="filter-btn">
+        <span class="icon">🏛️</span> 건축 (Architecture)
+      </label>
+      <label for="animals" class="filter-btn">
+        <span class="icon">🦊</span> 동물 (Animals)
+      </label>
+    </nav>
+
+    <!-- 4 × 3 갤러리 그리드 (총 12개 아이템) -->
+    <main class="gallery">
+
+      <!-- 01. Nature -->
+      <article class="gallery-item nature">
+        <div class="card">
+          <div class="img-box">
+            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&h=450&q=80" alt="안개 낀 고요한 산과 숲" loading="lazy">
+            <div class="overlay">
+              <span class="tag">자연</span>
+              <h3 class="card-title">새벽 안개 속의 산맥</h3>
+              <p class="card-desc">신비로운 분위기의 숲과 웅장한 능선</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 02. Architecture -->
+      <article class="gallery-item architecture">
+        <div class="card">
+          <div class="img-box">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&h=450&q=80" alt="모던한 고층 빌딩 유리 외벽" loading="lazy">
+            <div class="overlay">
+              <span class="tag">건축</span>
+              <h3 class="card-title">미래형 스카이라인</h3>
+              <p class="card-desc">하늘을 비추는 현대적인 통유리 빌딩</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 03. Animals -->
+      <article class="gallery-item animals">
+        <div class="card">
+          <div class="img-box">
+            <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=600&h=450&q=80" alt="호기심 가득한 고양이" loading="lazy">
+            <div class="overlay">
+              <span class="tag">동물</span>
+              <h3 class="card-title">초록 눈빛의 고양이</h3>
+              <p class="card-desc">따스한 햇살 아래 낮잠을 즐기는 순간</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 04. Nature -->
+      <article class="gallery-item nature">
+        <div class="card">
+          <div class="img-box">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&h=450&q=80" alt="에메랄드빛 해변과 파도" loading="lazy">
+            <div class="overlay">
+              <span class="tag">자연</span>
+              <h3 class="card-title">에메랄드빛 해안선</h3>
+              <p class="card-desc">백사장과 맑고 푸른 바다의 조화</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 05. Architecture -->
+      <article class="gallery-item architecture">
+        <div class="card">
+          <div class="img-box">
+            <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&h=450&q=80" alt="나선형 계단과 기하학적 건축 구조" loading="lazy">
+            <div class="overlay">
+              <span class="tag">건축</span>
+              <h3 class="card-title">기하학적 나선 계단</h3>
+              <p class="card-desc">빛과 그림자가 만들어낸 곡선의 미학</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 06. Animals -->
+      <article class="gallery-item animals">
+        <div class="card">
+          <div class="img-box">
+            <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&h=450&q=80" alt="들판을 달리는 활기찬 강아지" loading="lazy">
+            <div class="overlay">
+              <span class="tag">동물</span>
+              <h3 class="card-title">행복한 강아지의 미소</h3>
+              <p class="card-desc">자유롭게 푸른 잔디를 뛰노는 반려견</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 07. Nature -->
+      <article class="gallery-item nature">
+        <div class="card">
+          <div class="img-box">
+            <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=600&h=450&q=80" alt="햇살이 비치는 울창한 숲길" loading="lazy">
+            <div class="overlay">
+              <span class="tag">자연</span>
+              <h3 class="card-title">깊은 원시림의 산책로</h3>
+              <p class="card-desc">나뭇잎 사이로 쏟아지는 찬란한 빛내림</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 08. Architecture -->
+      <article class="gallery-item architecture">
+        <div class="card">
+          <div class="img-box">
+            <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=600&h=450&q=80" alt="화이트 톤의 미니멀리즘 건축물" loading="lazy">
+            <div class="overlay">
+              <span class="tag">건축</span>
+              <h3 class="card-title">미니멀 화이트 파사드</h3>
+              <p class="card-desc">단순함 속에 깃든 완벽한 비례와 균형</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 09. Animals -->
+      <article class="gallery-item animals">
+        <div class="card">
+          <div class="img-box">
+            <img src="https://images.unsplash.com/photo-1484406566174-9da000fda645?auto=format&fit=crop&w=600&h=450&q=80" alt="숲속에서 고요히 서있는 사슴" loading="lazy">
+            <div class="overlay">
+              <span class="tag">동물</span>
+              <h3 class="card-title">야생 숲의 파수꾼</h3>
+              <p class="card-desc">우아한 뿔과 신비로운 눈망울의 사슴</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 10. Nature -->
+      <article class="gallery-item nature">
+        <div class="card">
+          <div class="img-box">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&h=450&q=80" alt="노을빛 호수와 잔잔한 수면" loading="lazy">
+            <div class="overlay">
+              <span class="tag">자연</span>
+              <h3 class="card-title">황금빛 호수의 일몰</h3>
+              <p class="card-desc">수면에 은은하게 물드는 황혼의 색채</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 11. Architecture -->
+      <article class="gallery-item architecture">
+        <div class="card">
+          <div class="img-box">
+            <img src="https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?auto=format&fit=crop&w=600&h=450&q=80" alt="고풍스러운 유럽식 대성당 아치 건축" loading="lazy">
+            <div class="overlay">
+              <span class="tag">건축</span>
+              <h3 class="card-title">클래식 고딕 아치</h3>
+              <p class="card-desc">수세기를 이어온 장인들의 석조 예술</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 12. Animals -->
+      <article class="gallery-item animals">
+        <div class="card">
+          <div class="img-box">
+            <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=600&h=450&q=80" alt="귀여운 강아지의 클로즈업 사진" loading="lazy">
+            <div class="overlay">
+              <span class="tag">동물</span>
+              <h3 class="card-title">순수한 골든 리트리버</h3>
+              <p class="card-desc">바라만 보아도 마음이 따뜻해지는 눈동자</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </main>
+  </div>
+
+</body>
+</html>
